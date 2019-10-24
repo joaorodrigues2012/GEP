@@ -2,50 +2,112 @@
   tarefa works!
 </p>
 
-<section class="content">
-  <div class="container-fluid">
-    <div class="block-header">
-      <h2>Tarefas</h2>
+<p-table #grdProjeto
+         [columns]="colunas"
+         [value]="listaTarefas"
+         [paginator]="true"
+         [rows]="10"
+         [resizableColumns]="true"
+         [reorderableColumns]="true"
+         selectionMode="single"
+         [(selection)]="tarefa"
+         [scrollable]="true" scrollHeight="400px"
+         (onRowSelect)="onRowSelect($event)">
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn pReorderableColumn
+          style="width:300px">
+        {{col.header}}
+        <p-sortIcon [field]="col.field"></p-sortIcon>
+      </th>
+    </tr>
+    <tr>
+      <th *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-fluid">
+        <input pInputText type="text"
+               (input)="grdProjeto.filter($event.target.value, col.field, col.filterMatchMode)"
+               [value]="grdProjeto.filters[col.field]?.value">
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <tr [pSelectableRow]="rowData">
+      <td>
+
+        <button pButton type="button" icon="pi pi-times" class="ui-button-danger"></button>
+      </td>
+      <td *ngFor="let col of columns" style="width:300px">
+        {{rowData[col.field]}}
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="summary" let-rowData>
+    <div style="text-align:left">
+      <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add"></button>
     </div>
-  </div>
-  <div id="conteudo">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <div class="card">
-        <div class="body">
-          <div class="table-responsive">
-            <table class="table table-hover dashboard-task-infos">
-              <thead>
-              <tr>
-                <th scope="col">#ID</th>
-                <th scope="col">Descrição</th>
-                <th scope="col">Duração</th>
-                <th scope="col">Data de Inicio</th>
-                <th scope="col">Data Fim </th>
-                <th scope="col">Responsalvel</th>
-                <th scope="col">Status</th>
-                <th scope="col" style="padding-left: 50px; padding-right: 50px ">ações</th>
-              </tr>
-              </thead>
-              <tr *ngFor=" let lista of listaTarefas  ">
-                <td>{{ lista.id}}</td>
-                <td>{{ lista.descricao}}</td>
-                <td>{{ lista.dias}}</td>
-                <td>{{ lista.dt_INICIO}}</td>
-                <td>{{ lista.dt_FIM}}</td>
-                <td>{{ lista.responsavel}}</td>
-                <td>{{ lista.status}}</td>
-                <td class="text-center" width="20%">
-                  <button id="{{lista.id}}" class="btn btn-outline-primary btn-lg btn-view" ><i class="mdi mdi-eye mdi-18px"></i></button>
-                  <button id="{{lista.id}}" class="btn btn-outline-warning btn-lg btn-edit"><i class="mdi mdi-pencil mdi-18px"></i></button>
-                  <button id="{{lista.id}}" class="btn btn-outline-danger btn-lg btn-del"><i class="mdi mdi-delete mdi-18px"></i></button>
-                </td>
-              </tr>
-              <tbody>
-              </tbody>
-            </table>
-          </div>
+  </ng-template>
+</p-table>
+
+<p-dialog header="Cronograma detalhes" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"
+          [style]="{width: '700px'}">
+
+  <div class="ui-g ui-fluid" *ngIf="editTarefas">
+    <div class="ui-g-6">
+      <div class="ui-g-12">
+        <div class="ui-g-4">
+          <label for="descricao">Descrição</label>
+        </div>
+        <div class="ui-g-8">
+          <input pInputText id="descricao" [(ngModel)]="editTarefas.descricao"/>
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-4">
+          <label for="dias">Dias</label>
+        </div>
+        <div class="ui-g-8">
+          <input pInputText id="dias" [(ngModel)]="editTarefas.dias"/>
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-4">
+          <label for="dia_inicio">Dia inicio</label>
+        </div>
+        <div class="ui-g-8">
+          <input pInputText id="dia_inicio" type="date" [(ngModel)]="editTarefas.dt_INICIO"/>
+        </div>
+      </div>
+    </div>
+    <div class="ui-g-6">
+      <div class="ui-g-12">
+        <div class="ui-g-4">
+          <label for="dt_fim">Data Fim</label>
+        </div>
+        <div class="ui-g-8">
+          <input pInputText id="dt_fim" type="date" [(ngModel)]="editTarefas.dt_FIM"/>
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-4">
+          <label for="responsavel">Responsalvel</label>
+        </div>
+        <div class="ui-g-8">
+          <input pInputText id="responsavel" type="text" [(ngModel)]="editTarefas.responsavel"/>
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-4">
+          <label for="status">Status</label>
+        </div>
+        <div class="ui-g-8">
+          <input pInputText id="status" type="text" [(ngModel)]="editTarefas.status"/>
         </div>
       </div>
     </div>
   </div>
-</section>
+  <p-footer>
+    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+      <button type="button" pButton icon="fa fa-close" (click)="delete()" label="Delete"></button>
+      <button type="button" pButton icon="fa fa-check" (click)="save()" label="Save"></button>
+    </div>
+  </p-footer>
+</p-dialog>
