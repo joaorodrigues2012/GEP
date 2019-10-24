@@ -12,5 +12,9 @@ export class ProjetoService {
   ListarProjeto() {
     return this.http.get<Projetos[]>(API);
   }
+  listarStatus(){
+    let API = 'https://gep-api.herokuapp.com/Status/';
+    return this.http.get<any[]>(API);
+  }
 
 }

@@ -19,9 +19,13 @@ import {ProjetosComponent} from './pages/projetos/projetos.component';
 import {TarefaComponent} from './pages/tarefa/tarefa.component';
 import {MenuLateralComponent} from './pages/menu-lateral/menu-lateral.component';
 import {HttpClientModule} from '@angular/common/http';
-import {ButtonModule, InputTextModule, MessageService, PanelMenuModule, ToolbarModule} from 'primeng/primeng';
+import {ConfirmDialogModule, DialogModule, InputTextModule, PaginatorModule, ToolbarModule} from 'primeng/primeng';
+import {ButtonModule, MessageService, PanelMenuModule} from 'primeng/primeng';
 import {TableModule} from 'primeng/table';
 import {FullCalendarModule} from 'primeng/fullcalendar';
+import {RadioButtonModule} from 'primeng/radiobutton';
+// import { SalvarCronogramaComponent } from './model/cronograma/salvar-cronograma/salvar-cronograma.component';
+
 import {ToastModule} from 'primeng/toast';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -36,7 +40,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     CronogramaComponent,
     ProjetosComponent,
     TarefaComponent,
-    MenuLateralComponent,
+    MenuLateralComponent
   ],
   imports: [
     BrowserModule,
@@ -54,6 +58,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FullCalendarModule,
     MenuModule,
     HttpClientModule,
+    ConfirmDialogModule,
+    RadioButtonModule,
+    InputTextModule,
+    DialogModule,
+    PaginatorModule,
     InputTextModule,
     ToastModule,
     ButtonModule,
