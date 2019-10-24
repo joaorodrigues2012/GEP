@@ -19,10 +19,11 @@ import {ProjetosComponent} from './pages/projetos/projetos.component';
 import {TarefaComponent} from './pages/tarefa/tarefa.component';
 import {MenuLateralComponent} from './pages/menu-lateral/menu-lateral.component';
 import {HttpClientModule} from '@angular/common/http';
-import {ToolbarModule} from 'primeng/primeng';
+import {ButtonModule, InputTextModule, MessageService, PanelMenuModule, ToolbarModule} from 'primeng/primeng';
 import {TableModule} from 'primeng/table';
 import {FullCalendarModule} from 'primeng/fullcalendar';
-
+import {ToastModule} from 'primeng/toast';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -52,9 +53,14 @@ import {FullCalendarModule} from 'primeng/fullcalendar';
     FullCalendarModule,
     FullCalendarModule,
     MenuModule,
-    HttpClientModule
+    HttpClientModule,
+    InputTextModule,
+    ToastModule,
+    ButtonModule,
+    FontAwesomeModule,
+    PanelMenuModule
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

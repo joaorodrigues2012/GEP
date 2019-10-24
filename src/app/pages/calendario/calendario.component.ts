@@ -29,7 +29,7 @@ export class CalendarioComponent implements OnInit {
         center: 'title',
         right: 'dayGridMonth,timeGridWeek,timeGridDay'
       },
-      editable: true
+      editable: false
     };
 
   }

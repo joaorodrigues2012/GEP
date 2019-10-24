@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {MenuItem} from 'primeng/api';
+import {Component, OnInit} from '@angular/core';
+import {MenuItem, MessageService} from 'primeng/api';
+import {ProjetoService} from '../../service/projeto.service';
+import {MenuService} from '../../service/menu.service';
 
 @Component({
   selector: 'app-menu-lateral',
@@ -10,36 +12,12 @@ export class MenuLateralComponent implements OnInit {
 
   items: MenuItem[];
 
+  constructor(private _service: MenuService, private messageService: MessageService) {
+  }
+
+
   ngOnInit() {
-    this.items = [{
-      label: 'File',
-      items: [
-        {label: 'New', icon: 'pi pi-fw pi-plus'},
-        {label: 'Download', icon: 'pi pi-fw pi-download'}
-      ]
-    },
-      {
-        label: 'Edit',
-        items: [
-          {label: 'Add User', icon: 'pi pi-fw pi-user-plus'},
-          {label: 'Remove User', icon: 'pi pi-fw pi-user-minus'}
-        ]
-      },
-      {
-        label: 'File',
-        items: [
-          {label: 'New', icon: 'pi pi-fw pi-plus'},
-          {label: 'Download', icon: 'pi pi-fw pi-download'}
-        ]
-      },
-      {
-        label: 'Edit',
-        items: [
-          {label: 'Add User', icon: 'pi pi-fw pi-user-plus'},
-          {label: 'Remove User', icon: 'pi pi-fw pi-user-minus'}
-        ]
-      }
-    ];
+    this._service.ListarMenu().subscribe(x => this.items = x);
   }
 
 }
