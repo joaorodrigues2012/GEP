@@ -11,15 +11,16 @@ import {Projetos} from '../../model/projetos';
 export class TarefaComponent implements OnInit {
   listaTarefas: Tarefa[] = [];
 
-  colunas :any[];
-  tarefa :Tarefa;
+  colunas: any[];
+  tarefa: Tarefa;
 
   displayDialog: boolean;
   editTarefas: any;
   newTarefa: boolean;
 
 
-  constructor(private tarefaService: TarefaService) {}
+  constructor(private tarefaService: TarefaService) {
+  }
 
   ngOnInit() {
     this.tarefaService.listar().subscribe(listaTarefas => {
@@ -31,7 +32,8 @@ export class TarefaComponent implements OnInit {
       {field: 'dt_INICIO', header: 'Data Inicio'},
       {field: 'dt_FIM', header: 'Data Fim'},
       {field: 'responsavel', header: 'Responsavel'},
-      {field: 'status', header: 'Status'}
+      {field: 'status', header: 'Status'},
+      {field: 'acao', header: 'Ação'}
     ];
   }
 
@@ -42,13 +44,12 @@ export class TarefaComponent implements OnInit {
     this.displayDialog = true;
   }
 
-  save(){
+  save() {
     let taref = [...this.listaTarefas];
 
-    if (this.newTarefa){
+    if (this.newTarefa) {
       taref.push(this.editTarefas);
-    }
-    else {
+    } else {
       taref[this.listaTarefas.indexOf(this.tarefa)] = this.editTarefas;
     }
 
@@ -74,6 +75,7 @@ export class TarefaComponent implements OnInit {
     this.editTarefas = this.cloneTarefa($event);
     this.displayDialog = true;
   }
+
   cloneTarefa(c: Tarefa): Tarefa {
     let taref = {};
     for (let prop in c) {

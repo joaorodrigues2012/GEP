@@ -12,6 +12,7 @@ import {AccordionModule} from 'primeng/accordion';
 import {NavbarComponent} from './pages/navbar/navbar.component';
 import {MenuModule} from 'primeng/menu';
 import {CalendarioComponent} from './pages/calendario/calendario.component';
+import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {HomeComponent} from './pages/home/home.component';
 import {LoginComponent} from './pages/login/login.component';
 import {CronogramaComponent} from './pages/cronograma/cronograma.component';
@@ -19,7 +20,7 @@ import {ProjetosComponent} from './pages/projetos/projetos.component';
 import {TarefaComponent} from './pages/tarefa/tarefa.component';
 import {MenuLateralComponent} from './pages/menu-lateral/menu-lateral.component';
 import {HttpClientModule} from '@angular/common/http';
-import {ConfirmDialogModule, DialogModule, InputTextModule, PaginatorModule, ToolbarModule} from 'primeng/primeng';
+import {ChartModule, ConfirmDialogModule, DialogModule, InputTextModule, PaginatorModule, ToolbarModule} from 'primeng/primeng';
 import {ButtonModule, MessageService, PanelMenuModule} from 'primeng/primeng';
 import {TableModule} from 'primeng/table';
 import {FullCalendarModule} from 'primeng/fullcalendar';
@@ -67,7 +68,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     ToastModule,
     ButtonModule,
     FontAwesomeModule,
-    PanelMenuModule
+    PanelMenuModule,
+    ChartModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

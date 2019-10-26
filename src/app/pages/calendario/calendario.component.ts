@@ -3,7 +3,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import {TarefaService} from '../../service/tarefa.service';
-
+import {ChartModule} from 'primeng/chart';
 @Component({
   selector: 'app-calendario',
   templateUrl: './calendario.component.html',
@@ -16,8 +16,47 @@ export class CalendarioComponent implements OnInit {
 
   options: any;
   events: Object;
+  data: any;
+  data2: any;
+
 
   ngOnInit() {
+
+      this.data = {
+        labels: ['Concluídas', 'Em Andamento', 'Atrasadas'],
+        datasets: [
+          {
+            data: [30, 50, 30],
+            backgroundColor: [
+              '#36A2EB',
+              '#FFCE56',
+              '#FF6384'
+            ],
+            hoverBackgroundColor: [
+              '#36A2EB',
+              '#FFCE56',
+              '#FF6384'
+            ]
+          }]
+      };
+
+      this.data2 = {
+        labels: ['Concluídos', 'Em Andamento', 'Atrasados'],
+        datasets: [
+          {
+            data: [40, 50, 10],
+            backgroundColor: [
+              '#36A2EB',
+              '#FFCE56',
+              '#FF6384'
+            ],
+            hoverBackgroundColor: [
+              '#36A2EB',
+              '#FFCE56',
+              '#FF6384'
+            ]
+          }]
+      };
 
     this._service.buscaDatas().subscribe(x => this.events = x);
 
